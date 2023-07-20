@@ -41,13 +41,33 @@ from
 	group by
 		student_age;
 	#group by는 묶어서 계산할때 사용
-    select 
-		student_age,
-		sum(student_score) as total_score
-	from
-		student_tb
-	group by
-		student_age
-	having
-		total_score = 40;
+select 
+	student_age,
+	sum(student_score) as total_score
+from
+	student_tb
+group by
+	student_age
+having
+	total_score = 40;
+#순서 f- > w -> gb -> s -> h having의 total_score를 쓰려면 select
+select 
+	count(*)
+    #전체 라인의 갯수를 알려줌
+from
+	student_tb
+where
+	student_age = 20;
+# select는 순서가 있음 from -> where -> select
+
 	#having을 사용하여 total_score가 40인것을 찾아냄
+	#조건을 안넣으면 모든 점수가 합쳐저서 나옴, as로 변수명인 칼럼명을 바꿔줌
+
+select
+	*
+from
+	student_tb
+order by
+    student_score desc,
+    student_id desc;
+#asc: 오름차순 <> desc: 내림차순, order by는 순서 제일 마지막
