@@ -51,4 +51,3 @@ from
 	having
 		total_score = 40;
 	#having을 사용하여 total_score가 40인것을 찾아냄
-	#조건을 안넣으면 모든 점수가 합쳐저서 나옴, as로 변수명인 칼럼명을 바꿔줌
