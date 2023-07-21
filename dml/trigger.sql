@@ -7,6 +7,11 @@ values(0,'김준일');
 -- 	insert into table1
 --     values(0, new.user_id, concat(new.name, '의 자기소개'), 1);
 -- END
+# table1의 트리거 설정 위와 같이 insert 후에 동작되야하므로 AFTER INSERT에 넣어둠 
+-- CREATE DEFINER=`root`@`localhost` TRIGGER `table1_AFTER_INSERT` AFTER INSERT ON `table1` FOR EACH ROW BEGIN
+-- 	insert into table2
+--     values(0, new.t1_id,'자기소개를 입력하세요.', 1);
+-- END
 # delete는 기준점이 되는 user_tb에서 먼저 사라지면 이후 오류가 발생 했을때 table1, table2의 값을 못 찾을 수 있음 따라서 지우기 전에 동작을 한 후 마지막에 지워 줌
 
 insert into table1
@@ -34,3 +39,20 @@ where
 	name = '김준일';
 # user은 삭제되고 table1, table2의 visible은 0으로 바뀜
 # delete는 기준점이 되는 user_tb에서 먼저 사라지면 이후 오류가 발생 했을때 table1, table2의 값을 못 찾을 수 있음 따라서 지우기 전에 동작을 한 후 마지막에 지워 줌
+# user_tb의 트리거 설정 delete 전에 동작되야하므로 BEFORE DELETE에 넣어둠
+-- CREATE DEFINER=`root`@`localhost` TRIGGER `user_tb_BEFORE_DELETE` BEFORE DELETE ON `user_tb` FOR EACH ROW BEGIN
+-- 	update table1
+--     set visible = 0
+--     where
+-- 		user_id = old.user_id;
+-- 	update후 insert
+--     insert into user_withdraw_tb
+--     values(0, old.user_id, old.name);
+-- END
+# table1의 트리거 설정 user_tb가 delete될 때 update 된다 table1에서 update이후 table2 수정 (이경우 순서 딱히 상관 없음)
+-- CREATE DEFINER=`root`@`localhost` TRIGGER `table1_AFTER_UPDATE` AFTER UPDATE ON `table1` FOR EACH ROW BEGIN
+-- 	update table2
+--     set visible = 0
+--     where
+-- 		t1_id = old.t1_id;
+-- END
