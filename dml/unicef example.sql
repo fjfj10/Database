@@ -10,18 +10,18 @@ where
 	gpt.giving_name != 'test';	-- giving_name이 'test'인 것을 제외
 -- 답
 -- select
--- 	gt.giver_id,
--- 	gt.user_id,
+-- 	gvt.giver_id,
+-- 	gvt.user_id,
 -- 	ut.name,
---  gt.giving_page_id,
+--  gvt.giving_page_id,
 --  gpt.story_title,
---  gt.giving_total
+--  gvt.giving_total
 -- from
--- 	giver_tb gt 
---  left outer join user_tb ut on(ut.user_id = gt.user_id)
---  left outer join giving_page_tb gpt on(gpt.giving_page_id = gt.giving_page_id)     
+-- 	giver_tb gvt 
+--  left outer join user_tb ut on(ut.user_id = gvt.user_id)
+--  left outer join giving_page_tb gpt on(gpt.giving_page_id = gvt.giving_page_id)     
 -- group by
--- 	gt.user_id;
+-- 	gvt.user_id;
 
 # 2. 센터별로 총 기부액이 얼마인지
 select
